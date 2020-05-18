@@ -3,28 +3,49 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
+    restart: always
     ports:
       - 5672:5672
       - 15672:15672
 
+  database:
+    image: postgres:12.2
+    restart: always
+    environment:
+      - POSTGRES_DB=esports
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+
   web:
     image: ${DOCKER_IMAGE}
+    restart: always
     build:
       context: .
     ports:
       - 8000:8000
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./db.sqlite3:/app/db.sqlite3
+    command: ./start.sh
+    depends_on:
+      - database
+    links:
+      - database:database
+    environment:
+      - USE_POSTGRES=true
+      - POSTGRES_DB=esports
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
 
   worker:
     image: ${DOCKER_IMAGE}
     command: python manage.py startconsumer
     restart: always
-    volumes:
-      - ./db.sqlite3:/app/db.sqlite3
     depends_on:
       - rabbitmq
+      - database
     links:
       - rabbitmq:rabbitmq
-
+      - database:database
+    environment:
+      - USE_POSTGRES=true
+      - POSTGRES_DB=esports
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}

@@ -1,17 +1,23 @@
 DOCKER_TAG ?= $(shell git rev-parse HEAD)
 DOCKER_IMAGE = esportsapi:$(DOCKER_TAG)
+DB_PASSWORD ?= postgres
+DB_USER ?= postgres
 
 .PHONY:
 build:
-	DOCKER_IMAGE=$(DOCKER_IMAGE) docker-compose build
+	DOCKER_IMAGE=$(DOCKER_IMAGE) DB_PASSWORD=$(DB_PASSWORD) DB_USER=$(DB_USER) docker-compose build
 
 .PHONY:
 test: build
-	docker run --rm -it $(DOCKER_IMAGE) python manage.py test
+	docker run --rm -e DB_PASSWORD=$(DB_PASSWORD) -e DB_USER=$(DB_USER) -it $(DOCKER_IMAGE)  python manage.py test
 
 .PHONY:
-run:
-	DOCKER_IMAGE=$(DOCKER_IMAGE) docker-compose up
+run: build
+	DOCKER_IMAGE=$(DOCKER_IMAGE) DB_PASSWORD=$(DB_PASSWORD) DB_USER=$(DB_USER) docker-compose up
+
+.PHONY:
+migrate:
+	DOCKER_IMAGE=$(DOCKER_IMAGE) USE_POSTGRES=true DB_PASSWORD=$(DB_PASSWORD) DB_USER=$(DB_USER) docker-compose run worker python manage.py migrate
 
 .PHONY:
 push_messages:
