@@ -13,7 +13,12 @@ test: build
 
 .PHONY:
 run: build
-	DOCKER_IMAGE=$(DOCKER_IMAGE) DB_PASSWORD=$(DB_PASSWORD) DB_USER=$(DB_USER) docker-compose up
+	DOCKER_IMAGE=$(DOCKER_IMAGE) DB_PASSWORD=$(DB_PASSWORD) DB_USER=$(DB_USER) docker-compose up -d
+
+.PHONY:
+stop:
+	DOCKER_IMAGE=$(DOCKER_IMAGE) DB_PASSWORD=$(DB_PASSWORD) DB_USER=$(DB_USER) docker-compose down
+
 
 .PHONY:
 migrate:

@@ -16,10 +16,13 @@ class Command(BaseCommand):
     help = 'Start receiving messages from RabbitMQ'
 
     def handle(self, *args, **options):
+        logging.basicConfig(level=logging.INFO)
+
         connection = pika.BlockingConnection(pika.ConnectionParameters(RABBITMQ_HOST))
         channel = connection.channel()
         channel.queue_declare(queue=QUEUE_NAME)
         channel.basic_consume(QUEUE_NAME, self.on_message)
+        logging.info('start consuming')
         try:
             channel.start_consuming()
         except KeyboardInterrupt:
@@ -29,9 +32,11 @@ class Command(BaseCommand):
     @staticmethod
     def on_message(channel, method_frame, header_frame, body):
         try:
+            logging.info(f'got message {method_frame.delivery_tag}')
             data = decode(body)  # contrary to the default json library, demjson can deal with malformed json
             create_or_update_match(data)
         finally:
+            logging.info(f'ack message {method_frame.delivery_tag}')
             channel.basic_ack(delivery_tag=method_frame.delivery_tag)
 
 
