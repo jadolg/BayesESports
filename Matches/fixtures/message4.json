@@ -1,0 +1,34 @@
+{
+    "source": "source3",
+    "data": {
+        "id": "bayes1-bayes2-overcooked-season-2-group-stage-lower-bracket-seed12",
+        "url": "https://www.source3.org/matches/bayes1-bayes2-overcooked-season-2-group-stage-lower-bracket-seed12",
+        "state": 1,
+        "teams": [
+            {
+                "id": "17",
+                "name": "Bayes Team",
+            },
+            {
+                "id": "18",
+                "name": "Bayes Esports Team",
+            }
+        ],
+        "bestof": null,
+        "scores": [
+            {
+                "team": 17,
+                "score": 1,
+                "winner": true
+            },
+            {
+                "team": 18,
+                "score": 0,
+                "winner": false
+            }
+        ],
+        "tournament": "Overbayes Tournament Series 2",
+        "date_start_text": "2020-01-07 15:00:00",
+        "title": "Overcooked 2"
+    }
+}

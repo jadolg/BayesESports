@@ -1,0 +1,37 @@
+{
+    "source": "source1",
+    "data": {
+        "id": 1,
+        "url": "https://www.source1.org/matches/1/",
+        "state": 1,
+        "teams": [
+            {
+                "id": 1,
+                "name": "Bayes Esports Team 1",
+            },
+            {
+                "id": 2,
+                "name": "Bayes Team 2",
+            }
+        ],
+        "bestof": "3",
+        "scores": [
+            {
+                "team": "1",
+                "score": null,
+                "winner": null
+            },
+            {
+                "team": "2",
+                "score": null,
+                "winner": null
+            }
+        ],
+        "tournament": {
+            "id": "15",
+            "name": "Overbayes Season 1"
+        },
+        "date_start_text": "2020-01-07 14:30:00",
+        "title": "Overcooked"
+    }
+}

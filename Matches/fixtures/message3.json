@@ -1,0 +1,34 @@
+{
+    "source": "source2",
+    "data": {
+        "id": "99",
+        "url": "https://www.source2.org/matches/99/bayes1-vs-bayes2",
+        "state": 1,
+        "teams": [
+            {
+                "id": 2,
+                "name": "Bayes Team 2",
+            },
+            {
+                "id": 3,
+                "name": "Bayes Esports 3 ",
+            }
+        ],
+        "bestof": null,
+        "scores": [
+            {
+                "team": 2,
+                "score": 2,
+                "winner": true
+            },
+            {
+                "team": 3,
+                "score": 1,
+                "winner": false
+            }
+        ],
+        "tournament": "Overbayes Premium Series",
+        "date_start_text": "2020-01-07 15:15:00",
+        "title": "OverCooked "
+    }
+}

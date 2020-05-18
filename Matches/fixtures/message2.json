@@ -1,0 +1,37 @@
+{
+    "source": "source1",
+    "data": {
+        "id": "1",
+        "url": "https://www.source1.org/matches/1/",
+        "state": 2,
+        "teams": [
+            {
+                "id": 2,
+                "name": "Bayes Team 2",
+            },
+            {
+                "id": 3,
+                "name": "Bayes Team 3",
+            }
+        ],
+        "bestof": "3",
+        "scores": [
+            {
+                "team": 2,
+                "score": 2,
+                "winner": true
+            },
+            {
+                "team": 3,
+                "score": 0,
+                "winner": false
+            }
+        ],
+        "tournament": {
+            "id": "15",
+            "name": "Overbayes Season 1 - Group Stage"
+        },
+        "date_start_text": "2020-01-07 15:00:00",
+        "title": "Overcooked"
+    }
+}
