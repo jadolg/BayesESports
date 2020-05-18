@@ -8,7 +8,7 @@ services:
       - 15672:15672
 
   web:
-    image: esportschallenge
+    image: ${DOCKER_IMAGE}
     build:
       context: .
     ports:
@@ -18,7 +18,7 @@ services:
       - ./db.sqlite3:/app/db.sqlite3
 
   worker:
-    image: esportschallenge
+    image: ${DOCKER_IMAGE}
     command: python manage.py startconsumer
     restart: always
     volumes:

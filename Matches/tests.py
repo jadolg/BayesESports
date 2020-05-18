@@ -1,22 +1,11 @@
 import json
 
-import pika
 from demjson import decode
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from Matches.management.commands.startconsumer import QUEUE_NAME, RABBITMQ_HOST, create_or_update_match
+from Matches.management.commands.startconsumer import create_or_update_match
 from Matches.models import Match
-
-
-def send_message_to_broker(message):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(RABBITMQ_HOST))
-    channel = connection.channel()
-    channel.queue_declare(queue=QUEUE_NAME)
-    channel.basic_publish(exchange='',
-                          routing_key=QUEUE_NAME,
-                          body=message)
-    connection.close()
 
 
 class MessagesProcessingTests(APITestCase):
