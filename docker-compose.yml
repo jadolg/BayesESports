@@ -1,0 +1,30 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  web:
+    image: esportschallenge
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3
+
+  worker:
+    image: esportschallenge
+    command: python manage.py startconsumer
+    restart: always
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3
+    depends_on:
+      - rabbitmq
+    links:
+      - rabbitmq:rabbitmq
+
